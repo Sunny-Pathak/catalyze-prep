@@ -12,7 +12,7 @@ export function KineticHeadline() {
       <h1
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative cursor-pointer text-6xl sm:text-8xl md:text-9xl lg:text-[11.5rem] font-black tracking-[-0.04em] font-[family-name:var(--font-syne)] leading-[0.88] uppercase transition-all duration-700 hover:tracking-[-0.02em]"
+        className="group relative cursor-pointer text-4xl xs:text-5xl sm:text-7xl md:text-8xl lg:text-[11.5rem] font-black tracking-[-0.04em] font-[family-name:var(--font-syne)] leading-[0.9] sm:leading-[0.88] uppercase transition-all duration-700 hover:tracking-[-0.02em] max-w-full px-2"
       >
         {/* Base text */}
         <span
@@ -27,7 +27,7 @@ export function KineticHeadline() {
       </h1>
 
       {/* Clean, free-floating elegant italic statement */}
-      <div className="mt-3 sm:mt-5 text-3xl sm:text-5xl md:text-6xl font-serif italic text-violet-300 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+      <div className="mt-2 sm:mt-5 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic text-violet-300 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
         <DualScramble
           text="is Real."
           chars="01[]/<>!#*+~"

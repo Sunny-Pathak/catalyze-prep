@@ -115,7 +115,7 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-transparent text-white p-8 md:p-14 select-none z-20 pointer-events-none"
+      className="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-transparent text-white p-5 sm:p-8 md:p-14 select-none z-20 pointer-events-none"
     >
       {/* 1. Pure Minimal Brand Identity (Top Left) & Quiet Link (Top Right) */}
       <header
@@ -123,9 +123,9 @@ export function HeroSection() {
         style={{ opacity: 0 }}
         className="relative z-30 flex items-center justify-between w-full pointer-events-auto"
       >
-        <div ref={logoRef} className="flex items-center gap-3 group cursor-pointer">
-          <div className="w-2.5 h-2.5 bg-violet-400" />
-          <span className="text-sm font-black tracking-[0.28em] uppercase font-[family-name:var(--font-syne)] text-white">
+        <div ref={logoRef} className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer">
+          <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 bg-violet-400" />
+          <span className="text-xs sm:text-sm font-black tracking-[0.2em] sm:tracking-[0.28em] uppercase font-[family-name:var(--font-syne)] text-white">
             CATALYZE
           </span>
         </div>
@@ -134,7 +134,7 @@ export function HeroSection() {
           href="https://cat-tracker-1538d.web.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs font-mono tracking-widest text-slate-400 hover:text-white transition-colors cursor-pointer"
+          className="text-[11px] sm:text-xs font-mono tracking-widest text-slate-400 hover:text-white transition-colors cursor-pointer"
         >
           APP ↗
         </a>
@@ -144,7 +144,7 @@ export function HeroSection() {
       <div
         ref={headlineWrapperRef}
         style={{ opacity: 0 }}
-        className="relative z-20 flex flex-col items-center justify-center my-auto w-full pointer-events-auto"
+        className="relative z-20 flex flex-col items-center justify-center my-auto w-full pointer-events-auto px-2"
       >
         <KineticHeadline />
       </div>
@@ -153,10 +153,10 @@ export function HeroSection() {
       <footer
         ref={bottomMetaRef}
         style={{ opacity: 0 }}
-        className="relative z-30 flex items-end justify-between w-full text-[10px] md:text-xs font-mono text-slate-500 tracking-widest uppercase pointer-events-auto"
+        className="relative z-30 flex flex-col sm:flex-row items-center sm:items-end justify-between gap-2.5 w-full text-[9px] sm:text-[10px] md:text-xs font-mono text-slate-500 tracking-widest uppercase pointer-events-auto"
       >
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-violet-500" />
+        <div className="flex items-center gap-2 text-center sm:text-left">
+          <span className="w-1.5 h-1.5 bg-violet-500 shrink-0" />
           <span>OBSERVATION DEFINES OUTCOME</span>
         </div>
 

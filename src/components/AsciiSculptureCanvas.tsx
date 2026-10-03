@@ -311,7 +311,9 @@ export function AsciiSculptureCanvas() {
       }
 
       const targetCenterX = isMobile ? cols * 0.5 : cols * horizontalRatio;
-      const targetCenterY = rows * 0.52;
+      const mobileElevationProgress = isMobile ? Math.min(1, Math.max(0, wormholeProg / 0.12)) : 0;
+      const smoothElevation = mobileElevationProgress * mobileElevationProgress * (3 - 2 * mobileElevationProgress);
+      const targetCenterY = rows * (0.52 - smoothElevation * 0.18);
 
       const tiltX = mouseRef.current.x * 8;
       const tiltY = mouseRef.current.y * 8;
@@ -338,10 +340,12 @@ export function AsciiSculptureCanvas() {
           offCtx.globalAlpha = 1.0;
 
           const aspect = hImgA.width / hImgA.height;
-          let drawH = rows * 0.95;
+          const maxHeroW = isMobile ? cols * 0.88 : cols * 0.70;
+          const maxHeroH = isMobile ? rows * 0.78 : rows * 0.95;
+          let drawH = maxHeroH;
           let drawW = drawH * aspect;
-          if (drawW > cols * 0.70 && !isMobile) {
-            drawW = cols * 0.70;
+          if (drawW > maxHeroW) {
+            drawW = maxHeroW;
             drawH = drawW / aspect;
           }
           currentDrawW = drawW;
@@ -361,8 +365,14 @@ export function AsciiSculptureCanvas() {
           offCtx.save();
           offCtx.globalAlpha = p1Alpha;
           const img1Aspect = imgPose1.width / imgPose1.height;
-          let drawH1 = rows * 0.94;
+          const maxP1W = isMobile ? cols * 0.88 : cols * 0.70;
+          const maxP1H = isMobile ? rows * 0.78 : rows * 0.94;
+          let drawH1 = maxP1H;
           let drawW1 = drawH1 * img1Aspect;
+          if (drawW1 > maxP1W) {
+            drawW1 = maxP1W;
+            drawH1 = drawW1 / img1Aspect;
+          }
           const drawX1 = targetCenterX - drawW1 / 2 + tiltX / cellSize;
           const drawY1 = targetCenterY - drawH1 / 2 + tiltY / cellSize;
           offCtx.drawImage(imgPose1, drawX1, drawY1, drawW1, drawH1);
@@ -385,10 +395,12 @@ export function AsciiSculptureCanvas() {
         offCtx.save();
         offCtx.globalAlpha = p2Alpha * Math.min(1, statueFade * 1.4);
         const img2Aspect = imgPose2.width / imgPose2.height;
-        let drawH2 = rows * 0.96;
+        const maxP2W = isMobile ? cols * 0.85 : cols * 0.55;
+        const maxP2H = isMobile ? rows * 0.80 : rows * 0.96;
+        let drawH2 = maxP2H;
         let drawW2 = drawH2 * img2Aspect;
-        if (drawW2 > cols * 0.55 && !isMobile) {
-          drawW2 = cols * 0.55;
+        if (drawW2 > maxP2W) {
+          drawW2 = maxP2W;
           drawH2 = drawW2 / img2Aspect;
         }
         currentDrawW = drawW2;
@@ -455,7 +467,7 @@ export function AsciiSculptureCanvas() {
       const fingerOriginX = targetCenterX - currentDrawW * 0.2842 + tiltX / cellSize;
       const fingerOriginY = targetCenterY - currentDrawH * 0.2861 + tiltY / cellSize;
       const leftDestX = cols * 0.50;
-      const leftDestY = rows * 0.48;
+      const leftDestY = rows * (0.48 - smoothElevation * 0.16);
 
       // Angel Alpha: As the canvas inverts to celestial dawn, the classical Angel materializes at center (0.08 -> 0.35)
       let angelAlpha = 0;
@@ -480,9 +492,14 @@ export function AsciiSculptureCanvas() {
         // Scale: expands smoothly into full majestic sculpture (~0.84 rows)
         const scaleProg = Math.min(1, Math.max(0, (storyProg - 0.08) / 0.36));
         const smoothScale = scaleProg * scaleProg * (3 - 2 * scaleProg);
-        const entityH = isMobile ? rows * (0.64 + smoothScale * 0.18) : rows * (0.72 + smoothScale * 0.16);
+        let entityH = isMobile ? rows * (0.60 + smoothScale * 0.16) : rows * (0.72 + smoothScale * 0.16);
         const angelAspect = imgAngel.width / imgAngel.height;
-        const entityW = entityH * angelAspect;
+        let entityW = entityH * angelAspect;
+        const maxAngelW = isMobile ? cols * 0.88 : cols * 0.75;
+        if (entityW > maxAngelW) {
+          entityW = maxAngelW;
+          entityH = entityW / angelAspect;
+        }
 
         currentEntityX = entityCenterX;
         currentEntityY = entityCenterY;

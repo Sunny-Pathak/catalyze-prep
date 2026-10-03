@@ -159,12 +159,12 @@ export function WormholeSection() {
         {cardOpacity > 0.01 && (
           <div
             style={{ opacity: cardOpacity }}
-            className="fixed top-1/2 -translate-y-1/2 left-8 sm:left-14 lg:left-20 w-full max-w-[420px] sm:max-w-[460px] pointer-events-auto z-30 transition-opacity duration-300"
+            className="fixed bottom-5 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 left-3 right-3 sm:right-auto sm:left-14 lg:left-20 max-w-[calc(100vw-1.5rem)] sm:max-w-[440px] pointer-events-auto z-30 transition-opacity duration-300"
           >
             {/* Frosted Obsidian Glassmorphism Card */}
-            <div className="bg-[#0b0914]/75 backdrop-blur-xl border border-white/[0.08] p-7 sm:p-9 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.7)] flex flex-col gap-6">
+            <div className="bg-[#090710]/96 sm:bg-[#0b0914]/80 backdrop-blur-2xl border border-white/[0.12] sm:border-white/[0.08] p-4 sm:p-8 pb-5 sm:pb-8 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] flex flex-col gap-2.5 sm:gap-6 max-h-[46vh] sm:max-h-[86vh] overflow-y-auto">
               {/* 1. fogleman/ln 3D Vector Wireframe Cutout */}
-              <div className="w-full flex justify-start">
+              <div className="w-full flex justify-start scale-[0.85] sm:scale-100 origin-left -my-3 sm:my-0">
                 <LnVectorCutout
                   pillarIndex={activePillarIdx}
                   invertFactor={0}
@@ -173,29 +173,29 @@ export function WormholeSection() {
               </div>
 
               {/* 2. Kinetic Headline & Quote */}
-              <div ref={textBlockRef} className="flex flex-col gap-2">
-                <h2 className="text-3xl sm:text-4xl font-serif tracking-tight font-normal leading-tight text-white">
+              <div ref={textBlockRef} className="flex flex-col gap-1 sm:gap-2">
+                <h2 className="text-lg xs:text-xl sm:text-4xl font-serif tracking-tight font-normal leading-tight text-white">
                   {currentPillar.title}
                 </h2>
 
-                <p className="font-serif italic text-sm sm:text-base leading-relaxed text-violet-200/90">
+                <p className="font-serif italic text-xs sm:text-base leading-relaxed text-violet-200/90">
                   &ldquo;{currentPillar.quote}&rdquo;
                 </p>
 
-                <div className="mt-1 font-mono text-[9px] sm:text-[9.5px] tracking-[0.16em] uppercase text-violet-400">
+                <div className="mt-0.5 sm:mt-1 font-mono text-[7.5px] xs:text-[8px] sm:text-[9.5px] tracking-[0.07em] xs:tracking-[0.11em] sm:tracking-[0.16em] uppercase text-violet-400/95 leading-tight truncate">
                   {currentPillar.metric}
                 </div>
               </div>
 
               {/* 3. Clean Roman Numerals Navigation */}
-              <div className="flex items-center gap-7 pt-2">
+              <div className="flex items-center gap-3 sm:gap-7 pt-1 sm:pt-2 pb-0.5">
                 {PILLARS.map((p, idx) => {
                   const isActive = activePillarIdx === idx;
                   return (
                     <button
                       key={p.num}
                       onClick={() => handleJumpToPillar(idx)}
-                      className={`font-mono text-sm tracking-widest transition-all cursor-pointer relative py-1 ${
+                      className={`font-mono text-xs sm:text-sm tracking-widest transition-all cursor-pointer relative py-1 ${
                         isActive
                           ? "text-white font-bold"
                           : "text-slate-500 hover:text-white"
