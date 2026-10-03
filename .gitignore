@@ -43,4 +43,5 @@ next-env.d.ts
 # local backups
 src_backup_pre_cockpit/
 scratch/
+CAT-PREP-TRACKER/
 
