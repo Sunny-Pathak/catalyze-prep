@@ -24,24 +24,24 @@ const inter = Inter({
 import { SmoothScroll } from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  title: "CATalyze — CAT Exam Tracker | DISCIPLINE is Real.",
+  title: "CATalyze",
   description:
-    "Observation defines outcome. Structured daily quotas and continuous percentile mastery for CAT aspirants. Free, private, and built for people who study in silence.",
-  keywords: ["CAT Tracker", "IIM Preparation", "Quant", "DILR", "VARC", "Study Discipline", "Percentile Predictor"],
+    "Structured daily quotas and continuous percentile mastery for CAT aspirants. Free, private, and built for people who study in silence.",
+  keywords: ["CAT Tracker", "IIM Preparation", "Quant", "DILR", "VARC", "Study Discipline"],
   authors: [{ name: "Sunny Pathak" }],
   creator: "Sunny Pathak",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://cat-tracker-1538d.web.app/",
-    title: "CATalyze — CAT Exam Tracker | DISCIPLINE is Real.",
+    title: "CATalyze",
     description:
-      "Observation defines outcome. Structured daily quotas and continuous percentile mastery for CAT aspirants.",
+      "Structured daily quotas and continuous percentile mastery for CAT aspirants.",
     siteName: "CATalyze",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CATalyze — CAT Exam Tracker",
+    title: "CATalyze",
     description: "Structured daily quotas and continuous percentile mastery for CAT aspirants.",
   },
   robots: {
