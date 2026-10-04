@@ -112,10 +112,10 @@ export function WormholeSection() {
     };
   }, []);
 
-  // The 4 Architectural Pillars are driven seamlessly by the scroll wheel across [0.52, 1.00]
+  // The 4 Architectural Pillars are driven with generous, comfortable scroll runway across [0.14, 0.94]
   let activePillarIdx = 0;
-  if (telemetry.prog >= 0.52) {
-    const pProg = Math.min(0.999, Math.max(0, (telemetry.prog - 0.52) / 0.48));
+  if (telemetry.prog >= 0.14) {
+    const pProg = Math.min(0.999, Math.max(0, (telemetry.prog - 0.14) / 0.80));
     activePillarIdx = Math.min(3, Math.floor(pProg * 4));
   }
   const currentPillar = PILLARS[activePillarIdx];
@@ -128,8 +128,8 @@ export function WormholeSection() {
     if (textBlockRef.current) {
       gsap.fromTo(
         textBlockRef.current,
-        { opacity: 0.15, y: 12, filter: "blur(3px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }
+        { opacity: 0.1, y: 16, filter: "blur(4px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }
       );
     }
   }, [activePillarIdx]);
@@ -138,20 +138,20 @@ export function WormholeSection() {
   const handleJumpToPillar = (idx: number) => {
     const section = sectionRef.current;
     if (!section) return;
-    const targetProg = 0.53 + (idx + 0.5) * (0.47 / 4);
+    const targetProg = 0.14 + (idx + 0.5) * (0.80 / 4);
     const totalScrollable = section.clientHeight - window.innerHeight;
     const targetY = section.offsetTop + targetProg * totalScrollable;
     window.scrollTo({ top: targetY, behavior: "smooth" });
   };
 
-  // Left card opacity fades in smoothly between prog 0.48 and 0.54
-  const cardOpacity = Math.min(1, Math.max(0, (telemetry.prog - 0.48) / 0.06));
+  // Left card opacity fades in smoothly right as angel arrives (prog 0.10 to 0.14)
+  const cardOpacity = Math.min(1, Math.max(0, (telemetry.prog - 0.10) / 0.04));
 
   return (
     <section
       ref={sectionRef}
       id="wormhole"
-      className="relative w-full h-[550vh] bg-transparent select-none"
+      className="relative w-full h-[480vh] bg-transparent select-none"
     >
       {/* Sticky Fullscreen Layer */}
       <div className="sticky top-0 h-screen w-full pointer-events-none z-20">
@@ -168,12 +168,18 @@ export function WormholeSection() {
                 <LnVectorCutout
                   pillarIndex={activePillarIdx}
                   invertFactor={0}
-                  scrollDelta={telemetry.prog * 18}
+                  scrollDelta={telemetry.prog * 22}
                 />
               </div>
 
               {/* 2. Kinetic Headline & Quote */}
               <div ref={textBlockRef} className="flex flex-col gap-1 sm:gap-2">
+                <div className="flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] text-violet-400 font-bold uppercase">
+                  <span>PHASE {currentPillar.roman}</span>
+                  <span className="text-white/20">/</span>
+                  <span className="text-white/40">IV</span>
+                </div>
+
                 <h2 className="text-lg xs:text-xl sm:text-4xl font-serif tracking-tight font-normal leading-tight text-white">
                   {currentPillar.title}
                 </h2>
@@ -188,16 +194,16 @@ export function WormholeSection() {
               </div>
 
               {/* 3. Clean Roman Numerals Navigation */}
-              <div className="flex items-center gap-3 sm:gap-7 pt-1 sm:pt-2 pb-0.5">
+              <div className="flex items-center gap-3 sm:gap-7 pt-1 sm:pt-2 pb-0.5 border-t border-white/[0.06]">
                 {PILLARS.map((p, idx) => {
                   const isActive = activePillarIdx === idx;
                   return (
                     <button
                       key={p.num}
                       onClick={() => handleJumpToPillar(idx)}
-                      className={`font-mono text-xs sm:text-sm tracking-widest transition-all cursor-pointer relative py-1 ${
+                      className={`font-mono text-xs sm:text-sm tracking-widest transition-all duration-300 cursor-pointer relative py-1 ${
                         isActive
-                          ? "text-white font-bold"
+                          ? "text-white font-black scale-110"
                           : "text-slate-500 hover:text-white"
                       }`}
                       title={`Pillar ${p.num}`}
@@ -205,7 +211,7 @@ export function WormholeSection() {
                       [ {p.roman} ]
                       {isActive && (
                         <span
-                          className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.8)] animate-in fade-in zoom-in-50 duration-300"
+                          className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,1)] animate-in fade-in zoom-in-50 duration-300"
                         />
                       )}
                     </button>

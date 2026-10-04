@@ -22,6 +22,8 @@
     scroll-behavior: auto;
     background-color: var(--bg-deep);
     color: var(--text-primary);
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
   }
 
   html.lenis, html.lenis body {

@@ -238,22 +238,22 @@ export function AsciiSculptureCanvas() {
         if (wormholeState.isActive) isWormholeActive = true;
       }
 
-      // The angel flight completes across the first 45% of wormhole scroll:
-      storyProg = Math.min(1, Math.max(0, wormholeProg / 0.45));
+      // The angel flight completes across the first 12% of wormhole scroll (immediate, zero dead-space):
+      storyProg = Math.min(1, Math.max(0, wormholeProg / 0.12));
 
-      // Celestial Dawn Aura Factor (soft royal-violet and warm alabaster glow behind Angel):
+      // Celestial Dawn Aura Factor:
       let dawnAura = 0;
-      if (wormholeProg > 0.04) {
-        const dT = Math.min(1, Math.max(0, (wormholeProg - 0.04) / 0.18));
+      if (wormholeProg > 0.015) {
+        const dT = Math.min(1, Math.max(0, (wormholeProg - 0.015) / 0.08));
         dawnAura = dT * dT * (3 - 2 * dT);
       }
 
       // Compute Camera Motion Intensity (gentle sway only during starlight flight phase)
       let currentShakeIntensity = 0;
-      if (wormholeProg > 0.06 && wormholeProg <= 0.25) {
-        currentShakeIntensity = ((wormholeProg - 0.06) / 0.19) * 1.5;
-      } else if (wormholeProg > 0.25 && wormholeProg <= 0.42) {
-        currentShakeIntensity = 1.5 * (1 - (wormholeProg - 0.25) / 0.17);
+      if (wormholeProg > 0.02 && wormholeProg <= 0.07) {
+        currentShakeIntensity = ((wormholeProg - 0.02) / 0.05) * 1.5;
+      } else if (wormholeProg > 0.07 && wormholeProg <= 0.12) {
+        currentShakeIntensity = 1.5 * (1 - (wormholeProg - 0.07) / 0.05);
       } else {
         currentShakeIntensity = 0;
       }
@@ -266,10 +266,10 @@ export function AsciiSculptureCanvas() {
         canvasShakeY = Math.cos(time * 2.2) * (currentShakeIntensity * 0.25);
       }
 
-      // Scroll-driven camera push-in (scales smoothly from 1.0 to 1.95x when reaching angel section):
+      // Scroll-driven camera push-in & lateral shift (scales smoothly from 1.0 to 1.95x right as angel and card arrive):
       let targetZoom = 1.0;
-      if (wormholeProg > 0.45) {
-        const zT = Math.min(1, (wormholeProg - 0.45) / 0.12);
+      if (wormholeProg > 0.10) {
+        const zT = Math.min(1, (wormholeProg - 0.10) / 0.05);
         targetZoom = 1.0 + zT * zT * (3 - 2 * zT) * 0.95;
       }
       if (zoomState.active) {

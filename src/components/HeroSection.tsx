@@ -61,9 +61,11 @@ export function HeroSection() {
       }
     };
 
-    // If loaded at the very top of the page, play the elegant entrance sequence
-    const isAtTop = typeof window !== "undefined" && window.scrollY < 20;
-    if (isAtTop) {
+    // Play entrance sequence
+    let fallbackTimer: NodeJS.Timeout | null = null;
+
+    const playEntrance = () => {
+      if (tl) return;
       tl = gsap.timeline({
         defaults: { ease: "power4.out" },
         onComplete: () => {
@@ -97,8 +99,34 @@ export function HeroSection() {
           "-=0.7"
         );
       }
+    };
+
+    const isAtTop = typeof window !== "undefined" && window.scrollY < 20;
+    const hasVisited =
+      typeof window !== "undefined" &&
+      sessionStorage.getItem("catalyze_visited");
+
+    if (isAtTop) {
+      if (hasVisited) {
+        playEntrance();
+      } else {
+        const handlePreloaderDone = () => {
+          if (fallbackTimer) clearTimeout(fallbackTimer);
+          playEntrance();
+        };
+
+        window.addEventListener("preloader-complete", handlePreloaderDone, {
+          once: true,
+        });
+
+        // Defensive fallback in case preloader unmounted prior or failed
+        fallbackTimer = setTimeout(() => {
+          window.removeEventListener("preloader-complete", handlePreloaderDone);
+          playEntrance();
+        }, 2800);
+      }
     } else {
-      // Refreshed down the page (e.g. Section 2): instantly sync to current scroll offset
+      // Refreshed down the page: instantly sync to current scroll offset
       updateOnScroll();
     }
 
@@ -108,6 +136,7 @@ export function HeroSection() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateOnScroll);
+      if (fallbackTimer) clearTimeout(fallbackTimer);
       if (tl) tl.kill();
     };
   }, []);

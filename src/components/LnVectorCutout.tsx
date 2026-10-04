@@ -55,16 +55,16 @@ for (let i = 0; i < ICOSA_VERTS.length; i++) {
 const TESSERACT_VERTS: Point3D[] = [];
 const sOuter = 70;
 const sInner = 36;
-for (let x of [-1, 1]) {
-  for (let y of [-1, 1]) {
-    for (let z of [-1, 1]) {
+for (const x of [-1, 1]) {
+  for (const y of [-1, 1]) {
+    for (const z of [-1, 1]) {
       TESSERACT_VERTS.push({ x: x * sOuter, y: y * sOuter, z: z * sOuter });
     }
   }
 }
-for (let x of [-1, 1]) {
-  for (let y of [-1, 1]) {
-    for (let z of [-1, 1]) {
+for (const x of [-1, 1]) {
+  for (const y of [-1, 1]) {
+    for (const z of [-1, 1]) {
       TESSERACT_VERTS.push({ x: x * sInner, y: y * sInner, z: z * sInner });
     }
   }
@@ -174,18 +174,18 @@ export function LnVectorCutout({ pillarIndex, invertFactor = 1.0, scrollDelta = 
   // GSAP 3D Spin Twist & Staggered Stroke Draw when changing pillars
   useEffect(() => {
     if (!svgRef.current) return;
-    spinBoostRef.current = 1.2; // instant satisfying spin impulse
+    spinBoostRef.current = 2.4; // dramatic satisfying spin impulse on pillar switch
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
         svgRef.current,
-        { scale: 0.82, opacity: 0, rotate: -15 },
-        { scale: 1, opacity: 1, rotate: 0, duration: 0.55, ease: "back.out(1.4)" }
+        { scale: 0.72, opacity: 0.15, rotate: -30 },
+        { scale: 1, opacity: 1, rotate: 0, duration: 0.65, ease: "back.out(1.6)" }
       );
       gsap.fromTo(
         ".ln-edge",
-        { strokeDashoffset: 140, opacity: 0 },
-        { strokeDashoffset: 0, opacity: 1, duration: 0.7, stagger: 0.008, ease: "power2.out" }
+        { strokeDashoffset: 160, opacity: 0 },
+        { strokeDashoffset: 0, opacity: 1, duration: 0.75, stagger: 0.01, ease: "power2.out" }
       );
     }, svgRef);
 
@@ -201,17 +201,17 @@ export function LnVectorCutout({ pillarIndex, invertFactor = 1.0, scrollDelta = 
     const cosZ = Math.cos(rotation.rz);
     const sinZ = Math.sin(rotation.rz);
 
-    let x1 = p.x * cosY + p.z * sinY;
-    let y1 = p.y;
-    let z1 = -p.x * sinY + p.z * cosY;
+    const x1 = p.x * cosY + p.z * sinY;
+    const y1 = p.y;
+    const z1 = -p.x * sinY + p.z * cosY;
 
-    let x2 = x1;
-    let y2 = y1 * cosX - z1 * sinX;
-    let z2 = y1 * sinX + z1 * cosX;
+    const x2 = x1;
+    const y2 = y1 * cosX - z1 * sinX;
+    const z2 = y1 * sinX + z1 * cosX;
 
-    let x3 = x2 * cosZ - y2 * sinZ;
-    let y3 = x2 * sinZ + y2 * cosZ;
-    let z3 = z2;
+    const x3 = x2 * cosZ - y2 * sinZ;
+    const y3 = x2 * sinZ + y2 * cosZ;
+    const z3 = z2;
 
     const fov = 320;
     const pz = z3 + 360;

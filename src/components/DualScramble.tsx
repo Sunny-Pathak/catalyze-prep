@@ -24,12 +24,10 @@ export function DualScramble({
   trigger,
 }: DualScrambleProps) {
   const [displayText, setDisplayText] = useState(text);
-  const [isScrambling, setIsScrambling] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const startScramble = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
-    setIsScrambling(true);
 
     let iteration = 0;
     const maxIterations = text.length;
@@ -50,7 +48,6 @@ export function DualScramble({
 
       if (iteration >= maxIterations) {
         clearInterval(intervalRef.current!);
-        setIsScrambling(false);
         setDisplayText(text);
       }
 
@@ -69,7 +66,10 @@ export function DualScramble({
 
   useEffect(() => {
     if (trigger !== undefined && trigger !== false) {
-      startScramble();
+      const timer = setTimeout(() => {
+        startScramble();
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [trigger, startScramble]);
 
