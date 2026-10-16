@@ -8,30 +8,30 @@ const PILLARS = [
   {
     num: "01",
     roman: "I",
-    title: "QUANTITATIVE PURITY",
-    quote: "Master the structure of numbers, and chaos dissolves.",
-    metric: "3,160 PROBLEMS INDEXED · ARITHMETIC & ALGEBRA SYNTHESIS",
+    title: "Quantitative Aptitude",
+    desc: "Track 3,160 topic-wise questions across Arithmetic, Algebra, Geometry, and Modern Math with daily completion status.",
+    metric: "3,160 Questions • Topic-Wise Checklist",
   },
   {
     num: "02",
     roman: "II",
-    title: "DILR SELECTION ENGINE",
-    quote: "The impediment to action advances action. What stands in the way becomes the way.",
-    metric: "650 HIGH-DIFFICULTY SETS · SELECTION INTUITION ENGINE",
+    title: "Data Interpretation & LR",
+    desc: "650 curated problem sets categorized by difficulty, set type, and solving time with comprehensive attempt tracking.",
+    metric: "650 Sets • Pace & Time Tracking",
   },
   {
     num: "03",
     roman: "III",
-    title: "DIALECTICAL VARC",
-    quote: "The soul becomes dyed with the color of its thoughts. Read with detachment; infer with unyielding truth.",
-    metric: "620 DIALECTICAL PASSAGES · INFERENCE TELEMETRY",
+    title: "Verbal & Reading Comprehension",
+    desc: "620 RC passages across diverse genres with error categorization to isolate silly mistakes and comprehension gaps.",
+    metric: "620 Passages • Error Notebook",
   },
   {
     num: "04",
     roman: "IV",
-    title: "THE CONSISTENCY MATRIX",
-    quote: "First say to yourself what you would be; and then do what you must without variance.",
-    metric: "16 WEEKS DAILY EXECUTION · UNBROKEN STREAK PROTOCOL",
+    title: "Daily Quotas & Study Plan",
+    desc: "16-week structured schedule with daily streak tracking, mock test logs, and automated backlog recovery.",
+    metric: "16 Weeks • 112 Active Days",
   },
 ];
 
@@ -159,12 +159,12 @@ export function WormholeSection() {
         {cardOpacity > 0.01 && (
           <div
             style={{ opacity: cardOpacity }}
-            className="fixed bottom-5 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 left-3 right-3 sm:right-auto sm:left-14 lg:left-20 max-w-[calc(100vw-1.5rem)] sm:max-w-[440px] pointer-events-auto z-30 transition-opacity duration-300"
+            className="fixed bottom-5 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 left-3 right-3 sm:right-auto sm:left-14 lg:left-20 w-[calc(100vw-1.5rem)] sm:w-[420px] pointer-events-auto z-30 transition-opacity duration-300"
           >
-            {/* Frosted Obsidian Glassmorphism Card */}
-            <div className="bg-[#090710]/96 sm:bg-[#0b0914]/80 backdrop-blur-2xl border border-white/[0.12] sm:border-white/[0.08] p-4 sm:p-8 pb-5 sm:pb-8 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] flex flex-col gap-2.5 sm:gap-6 max-h-[46vh] sm:max-h-[86vh] overflow-y-auto">
+            {/* Fixed-Size Elegant Obsidian Glassmorphism Card */}
+            <div className="w-full h-[410px] sm:h-[430px] bg-[#090710]/95 sm:bg-[#0b0914]/90 backdrop-blur-2xl border border-white/[0.08] p-5 sm:p-6 pb-4 sm:pb-5 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] flex flex-col justify-between overflow-hidden select-none">
               {/* 1. fogleman/ln 3D Vector Wireframe Cutout */}
-              <div className="w-full flex justify-start scale-[0.85] sm:scale-100 origin-left -my-3 sm:my-0">
+              <div className="w-full flex items-center justify-start h-[130px] sm:h-[135px]">
                 <LnVectorCutout
                   pillarIndex={activePillarIdx}
                   invertFactor={0}
@@ -172,46 +172,46 @@ export function WormholeSection() {
                 />
               </div>
 
-              {/* 2. Kinetic Headline & Quote */}
-              <div ref={textBlockRef} className="flex flex-col gap-1 sm:gap-2">
+              {/* 2. Headline & Simple Uncluttered Text */}
+              <div ref={textBlockRef} className="flex flex-col gap-1.5 sm:gap-2 my-auto">
                 <div className="flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] text-violet-400 font-bold uppercase">
                   <span>PHASE {currentPillar.roman}</span>
                   <span className="text-white/20">/</span>
                   <span className="text-white/40">IV</span>
                 </div>
 
-                <h2 className="text-lg xs:text-xl sm:text-4xl font-serif tracking-tight font-normal leading-tight text-white">
+                <h2 className="text-xl sm:text-2xl font-serif tracking-tight font-normal leading-tight text-white">
                   {currentPillar.title}
                 </h2>
 
-                <p className="font-serif italic text-xs sm:text-base leading-relaxed text-violet-200/90">
-                  &ldquo;{currentPillar.quote}&rdquo;
+                <p className="font-sans text-xs sm:text-[13px] leading-relaxed text-slate-300">
+                  {currentPillar.desc}
                 </p>
 
-                <div className="mt-0.5 sm:mt-1 font-mono text-[7.5px] xs:text-[8px] sm:text-[9.5px] tracking-[0.07em] xs:tracking-[0.11em] sm:tracking-[0.16em] uppercase text-violet-400/95 leading-tight truncate">
+                <div className="mt-0.5 font-mono text-[9.5px] sm:text-[11px] text-violet-400/90 font-medium tracking-[0.1em] uppercase">
                   {currentPillar.metric}
                 </div>
               </div>
 
               {/* 3. Clean Roman Numerals Navigation */}
-              <div className="flex items-center gap-3 sm:gap-7 pt-1 sm:pt-2 pb-0.5 border-t border-white/[0.06]">
+              <div className="flex items-center gap-4 sm:gap-6 pt-3 pb-1 border-t border-white/[0.08]">
                 {PILLARS.map((p, idx) => {
                   const isActive = activePillarIdx === idx;
                   return (
                     <button
                       key={p.num}
                       onClick={() => handleJumpToPillar(idx)}
-                      className={`font-mono text-xs sm:text-sm tracking-widest transition-all duration-300 cursor-pointer relative py-1 ${
+                      className={`font-mono text-xs sm:text-sm tracking-widest transition-colors duration-200 cursor-pointer relative py-1 px-1.5 ${
                         isActive
-                          ? "text-white font-black scale-110"
+                          ? "text-white font-bold"
                           : "text-slate-500 hover:text-white"
                       }`}
-                      title={`Pillar ${p.num}`}
+                      title={`Phase ${p.roman}`}
                     >
                       [ {p.roman} ]
                       {isActive && (
                         <span
-                          className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,1)] animate-in fade-in zoom-in-50 duration-300"
+                          className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-violet-400 shadow-[0_0_10px_rgba(167,139,250,0.8)]"
                         />
                       )}
                     </button>

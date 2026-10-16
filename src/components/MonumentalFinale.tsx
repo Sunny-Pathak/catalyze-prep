@@ -3,17 +3,31 @@
 import React, { useState, useEffect } from "react";
 import { MagneticButton } from "./MagneticButton";
 
+let hasRequestedVisit = false;
+
 export function MonumentalFinale() {
-  const [daysLeft] = useState<number>(() => {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    let catDate = new Date(currentYear, 10, 29);
-    if (now.getTime() > catDate.getTime()) {
-      catDate = new Date(currentYear + 1, 10, 29);
-    }
-    const diffMs = catDate.getTime() - now.getTime();
-    return Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-  });
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const isFirstCall = !hasRequestedVisit;
+    hasRequestedVisit = true;
+
+    fetch(`/api/visitors?hit=${isFirstCall ? "true" : "false"}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted && typeof data?.count === "number") {
+          setVisitorCount(data.count);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch cloud visitor counter", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <footer className="relative w-full min-h-screen bg-[#07060b] text-white flex flex-col justify-between p-6 sm:p-14 lg:p-20 z-20 select-none overflow-hidden">
@@ -57,8 +71,8 @@ export function MonumentalFinale() {
 
       {/* Architectural Colophon Grid */}
       <div className="w-full pt-6 sm:pt-8 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-[10px] sm:text-xs font-mono tracking-widest text-slate-500 uppercase">
-        <div className="text-left">
-          <span>{daysLeft} DAYS REMAINING TO CAT</span>
+        <div className="text-left font-mono text-[10px] sm:text-xs tracking-widest text-slate-500 uppercase">
+          <span>VISITORS: {visitorCount !== null ? visitorCount.toLocaleString() : "..."}</span>
         </div>
 
         <div className="text-left sm:text-center">

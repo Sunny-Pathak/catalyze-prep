@@ -7,6 +7,7 @@ interface LnVectorCutoutProps {
   pillarIndex: number;
   invertFactor?: number;
   scrollDelta?: number;
+  className?: string;
 }
 
 interface Point3D {
@@ -124,7 +125,7 @@ for (let k = 0; k < 3; k++) {
   }
 }
 
-export function LnVectorCutout({ pillarIndex, invertFactor = 1.0, scrollDelta = 0 }: LnVectorCutoutProps) {
+export function LnVectorCutout({ pillarIndex, invertFactor = 1.0, scrollDelta = 0, className = "" }: LnVectorCutoutProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [rotation, setRotation] = useState({ rx: 0.35, ry: 0.5, rz: 0.1 });
@@ -229,12 +230,12 @@ export function LnVectorCutout({ pillarIndex, invertFactor = 1.0, scrollDelta = 
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center justify-center select-none w-full max-w-[240px] h-[210px]"
+      className={`relative flex items-center justify-start select-none w-[160px] sm:w-[180px] h-[125px] sm:h-[135px] ${className || ""}`}
     >
       <svg
         ref={svgRef}
         viewBox="0 0 240 230"
-        className="w-full h-full overflow-visible"
+        className="w-full h-full"
         aria-hidden="true"
       >
         <defs>
